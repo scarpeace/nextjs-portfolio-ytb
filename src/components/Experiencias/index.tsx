@@ -6,7 +6,7 @@ const mockItems = {
   year: 2021,
   title: 'Dev Front-end',
   description:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis ratione velit tempora sequi quo voluptas voluptatum.'
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis ratione velit tempora sequi quo voluptas.'
 };
 
 function Experiencias() {
