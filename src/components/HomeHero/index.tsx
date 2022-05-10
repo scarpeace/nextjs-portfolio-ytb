@@ -10,7 +10,7 @@ function HomeHero() {
       <div>
         <TextContainer>
           <h1>Olá</h1>
-          <h2>Me chamo Marcelo</h2>
+          <h2>Me chamo Gustavo</h2>
         </TextContainer>
 
         <InfosContainer>
