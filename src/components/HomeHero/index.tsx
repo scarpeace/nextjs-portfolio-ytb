@@ -17,7 +17,7 @@ function HomeHero() {
           <CodeItem>
             <span className="comment">//Minha Apresentação</span>
             <span className="purple">Infos</span>
-            {`\U007B`}
+            {' \u007B'}
 
             <div>
               Nome: <span className="blue">Gustavo</span>
@@ -26,14 +26,12 @@ function HomeHero() {
             <div>
               Sobrenome: <span className="blue">Scarpellini</span>
             </div>
-            {`\U007D`}
+            {'\u007D'}
           </CodeItem>
-        </InfosContainer>
 
-        <InfosContainer>
           <CodeItem>
             <span className="purple">Cargo</span>
-            {`\U007B`}
+            {' \u007B'}
 
             <div>
               Função: <span className="blue">Desenvolvedor</span>
@@ -42,7 +40,7 @@ function HomeHero() {
             <div>
               Empresa: <span className="blue">IBN</span>
             </div>
-            {`\U007D`}
+            {'\u007D'}
           </CodeItem>
         </InfosContainer>
       </div>

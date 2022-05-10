@@ -86,7 +86,7 @@ export const InfosContainer = styled.section`
 `;
 
 export const CodeItem = styled.pre`
-  background-color: ${({ theme }) => theme.gradient};
+  background: ${({ theme }) => theme.gradient};
   padding: 2rem;
   font-family: 'Jetbrains Mono', monospace;
   font-weight: 300;
