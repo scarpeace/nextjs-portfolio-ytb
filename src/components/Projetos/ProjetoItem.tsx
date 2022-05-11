@@ -3,18 +3,30 @@ import { AiOutlineRightCircle } from 'react-icons/ai';
 
 import { ProjetoContainer } from './styles';
 
-export default function ProjetoItem() {
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  imgUrl: string;
+}
+
+export default function ProjetoItem({
+  title,
+  description,
+  slug,
+  imgUrl
+}: Props) {
   return (
-    <ProjetoContainer imgUrl="https://igorgomes.eti.br/images/app-developing.png">
+    <ProjetoContainer imgUrl={imgUrl}>
       <section>
         <div className="overlay" />
         <div className="text">
-          <h1># Titulo</h1>
-          <h2>- Projeto teste</h2>
+          <h1># {title}</h1>
+          <h2>- {description}</h2>
         </div>
       </section>
       <button type="button">
-        <Link href="/projetos">
+        <Link href={slug}>
           <a>
             Ver mais <AiOutlineRightCircle />
           </a>
