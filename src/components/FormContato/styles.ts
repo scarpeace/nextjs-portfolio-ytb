@@ -1,7 +1,7 @@
 import { darken } from 'polished';
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.section``;
 
 export const FormContainer = styled.form`
   margin-top: 8rem;
@@ -11,14 +11,14 @@ export const FormContainer = styled.form`
   gap: 1rem;
 
   > button {
-    background-color: ${({ theme }) => theme.primary};
     border: none;
     padding: 1rem 2.5rem;
     color: #fff;
     font-weight: 300;
     font-size: 1.2rem;
     border-radius: 0.5rem;
-    color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.primary};
+    transition: 0.5s;
     width: fit-content;
 
     &:disabled {
@@ -26,7 +26,7 @@ export const FormContainer = styled.form`
     }
 
     &:not(:disabled):hover {
-      ${({ theme }) => darken(0.05, theme.primary)};
+      background: ${({ theme }) => darken(0.05, theme.primary)};
     }
   }
 
@@ -60,7 +60,7 @@ export const Input = styled.input`
   }
 
   &::placeholder {
-    border-color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.primary};
   }
 
   @media (max-width: 450px) {
@@ -82,14 +82,14 @@ export const TextArea = styled.textarea`
   transition: 0.5s;
   resize: none;
 
-  grid-column: 1/3;
+  grid-column: 1 / 3;
 
   &:focus {
     border-color: ${({ theme }) => theme.primary};
   }
 
   &::placeholder {
-    border-color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.primary};
   }
 
   @media (max-width: 700px) {
