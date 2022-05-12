@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.section`
   width: 100%;
 
   > section {
@@ -8,17 +8,18 @@ export const Container = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8rem;
-  }
 
-  @media (max-width: 1000px) {
-    gap: 5rem;
-  }
+    @media (max-width: 1000px) {
+      gap: 5rem;
+    }
 
-  @media (max-width: 700px) {
-    gap: 3rem;
-    flex-wrap: wrap;
-    margin-top: 5rem;
+    @media (max-width: 700px) {
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 5rem;
+    }
   }
 `;
 
@@ -40,12 +41,14 @@ export const ConhecimentoContainer = styled.div`
     width: 6.5rem;
     height: 6.5rem;
     color: ${({ theme }) => theme.secondary};
-    transition: 0.5s;
+    transition: 0.3s;
   }
 
   &:hover {
-    color: ${({ theme }) => theme.primary};
-    transform: scale(0.95);
+    svg {
+      color: ${({ theme }) => theme.primary};
+      transform: scale(0.95);
+    }
   }
 
   @media (max-width: 1000px) {
