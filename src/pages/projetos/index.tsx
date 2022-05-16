@@ -1,13 +1,9 @@
-import Conhecimentos from '../components/Conhecimentos';
-import Experiencias from '../components/Experiencias';
-import Footer from '../components/Footer';
-import FormContato from '../components/FormContato';
-import Header from '../components/Header';
-import { HomeContainer } from '../styles/HomeStyles';
-import HomeHero from '../components/HomeHero';
-import Projetos from '../components/Projetos';
 import { GetStaticProps } from 'next';
-import { getPrismicClient } from '../services/prismic';
+import Header from '../../components/Header';
+import ProjetoPreview from '../../components/ProjetoPreview';
+import { getPrismicClient } from '../../services/prismic';
+import { ProjetosContainer } from '../../styles/ProjetosStyles';
+
 interface IProjeto {
   slug: string;
   title: string;
@@ -17,23 +13,26 @@ interface IProjeto {
   thumbnail: string;
 }
 
-interface HomeProps {
+interface ProjetosProps {
   projects: IProjeto[];
 }
 
-export default function Home({ projects }: HomeProps) {
+export default function Projetos({ projects }: ProjetosProps) {
   return (
-    <HomeContainer>
+    <ProjetosContainer>
       <Header />
       <main className="container">
-        <HomeHero />
-        <Experiencias />
-        <Projetos projetos={projects} />
-        <Conhecimentos />
-        <FormContato />
+        {projects.map(project => (
+          <ProjetoPreview
+            key={project.slug}
+            title={project.title}
+            slug={project.slug}
+            type={project.type}
+            imgUrl={project.thumbnail}
+          />
+        ))}
       </main>
-      <Footer />
-    </HomeContainer>
+    </ProjetosContainer>
   );
 }
 
