@@ -1,8 +1,13 @@
 import * as prismic from '@prismicio/client';
 
-export function getPrismicClient(config = {}) {
+export const linkResolver = doc => {
+  if (doc.type === 'projeto') {
+    return `/projetos/${doc.uid}`;
+  }
+};
+
+export function getPrismicClient() {
   const client = prismic.createClient(process.env.PRISMIC_API_ENDPOINT, {
-    ...config,
     accessToken: process.env.PRISMIC_ACESS_TOKEN
   });
 

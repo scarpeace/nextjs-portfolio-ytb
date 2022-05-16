@@ -8,16 +8,27 @@ import HomeHero from '../components/HomeHero';
 import Projetos from '../components/Projetos';
 import { GetStaticProps } from 'next';
 import { getPrismicClient } from '../services/prismic';
-import * as prismic from '@prismicio/client';
+interface IProjeto {
+  slug: string;
+  title: string;
+  type: string;
+  description: string;
+  link: string;
+  thumbnail: string;
+}
 
-export default function Home() {
+interface HomeProps {
+  projects: IProjeto[];
+}
+
+export default function Home({ projects }: HomeProps) {
   return (
     <HomeContainer>
       <Header />
       <main className="container">
         <HomeHero />
         <Experiencias />
-        <Projetos />
+        <Projetos projetos={projects} />
         <Conhecimentos />
         <FormContato />
       </main>
@@ -26,20 +37,29 @@ export default function Home() {
   );
 }
 
-export const getstaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const prismicApi = getPrismicClient();
 
-  const projetcResponse = await prismicApi.getAllByType('projetos', {
+  const projetcResponse = await prismicApi.getAllByType('projeto', {
     orderings: {
       field: 'document.first_publication_date',
       direction: 'desc'
     }
   });
 
-  console.log('Resposta da API');
-  console.log(projetcResponse);
+  const projects = projetcResponse.map(projeto => ({
+    slug: projeto.uid,
+    title: projeto.data.title,
+    type: projeto.data.type,
+    desciption: projeto.data.description,
+    link: projeto.data.link.url,
+    thumbnail: projeto.data.thumbnail.url
+  }));
 
   return {
-    props: {}
+    props: {
+      projects
+    },
+    revalidate: 86400
   };
 };
