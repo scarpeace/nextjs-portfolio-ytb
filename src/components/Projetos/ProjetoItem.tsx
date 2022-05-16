@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { AiOutlineRightCircle } from 'react-icons/ai';
-
 import { ProjetoContainer } from './styles';
 
 interface Props {
@@ -17,7 +16,7 @@ export default function ProjetoItem({
   imgUrl
 }: Props) {
   return (
-    <ProjetoContainer imgUrl={imgUrl}>
+    <ProjetoContainer imgUrl={imgUrl} data-aos="fade-up">
       <section>
         <div className="overlay" />
         <div className="text">

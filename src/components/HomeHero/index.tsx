@@ -1,10 +1,10 @@
 /* eslint-disable no-useless-escape */
-import { CodeItem, Container, InfosContainer, TextContainer } from './styles';
 import pictureBanner from '../../assets/pessoa.webp';
+import { CodeItem, Container, InfosContainer, TextContainer } from './styles';
 
 function HomeHero() {
   return (
-    <Container>
+    <Container data-aos="fade-up">
       <img src={pictureBanner} alt="Imagem de uma menina" />
 
       <div>
@@ -13,7 +13,7 @@ function HomeHero() {
           <h2>Me chamo Gustavo</h2>
         </TextContainer>
 
-        <InfosContainer>
+        <InfosContainer data-aos="zoom-in">
           <CodeItem>
             <span className="comment">//Minha Apresentação</span>
             <span className="purple">Infos</span>

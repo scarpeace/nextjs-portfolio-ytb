@@ -1,13 +1,17 @@
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { GetStaticProps } from 'next';
+import { useEffect } from 'react';
 import Conhecimentos from '../components/Conhecimentos';
 import Experiencias from '../components/Experiencias';
 import Footer from '../components/Footer';
 import FormContato from '../components/FormContato';
 import Header from '../components/Header';
-import { HomeContainer } from '../styles/HomeStyles';
 import HomeHero from '../components/HomeHero';
 import Projetos from '../components/Projetos';
-import { GetStaticProps } from 'next';
 import { getPrismicClient } from '../services/prismic';
+import { HomeContainer } from '../styles/HomeStyles';
+
 interface IProjeto {
   slug: string;
   title: string;
@@ -22,6 +26,11 @@ interface HomeProps {
 }
 
 export default function Home({ projects }: HomeProps) {
+  // Biblioteca de animações chamada AOS (Animate on Scroll)
+  useEffect(() => {
+    Aos.init({ duration: 1500 });
+  }, []);
+
   return (
     <HomeContainer>
       <Header />
