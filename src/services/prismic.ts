@@ -6,7 +6,7 @@ export const linkResolver = doc => {
   }
 };
 
-export function getPrismicClient() {
+export function getPrismicClient(config = {}) {
   const client = prismic.createClient(process.env.PRISMIC_API_ENDPOINT, {
     accessToken: process.env.PRISMIC_ACESS_TOKEN
   });

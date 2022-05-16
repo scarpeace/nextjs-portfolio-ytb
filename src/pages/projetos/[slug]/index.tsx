@@ -1,28 +1,55 @@
-import * as prismicH from '@prismicio/helpers';
+import * as Prismic from '@prismicio/client';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import BannerProjeto from '../../../components/BannerProjeto';
 import Header from '../../../components/Header';
-import { getPrismicClient, linkResolver } from '../../../services/prismic';
+import { getPrismicClient } from '../../../services/prismic';
 import { ProjetoContainer } from '../../../styles/ProjetoStyles';
+// import LoadingScreen from '../../../components/LoadingScreen';
 
-export default function Projeto() {
+interface IProjeto {
+  slug: string;
+  title: string;
+  type: string;
+  description: string;
+  link: string;
+  thumbnail: string;
+}
+
+interface ProjetoProps {
+  projeto: IProjeto;
+}
+
+export default function Projeto({ projeto }: ProjetoProps) {
+  const router = useRouter();
+  // if (router.isFallback) {
+  //   return <LoadingScreen />;
+  // }
+
   return (
     <ProjetoContainer>
-      page
+      <Head>
+        <title>{projeto.title} | Meu portfólio</title>
+        <meta name="description" content={projeto.description} />
+        <meta property="og:image" content={projeto.thumbnail} />
+        <meta property="og:image:secure_url" content={projeto.thumbnail} />
+        <meta name="twitter:image" content={projeto.thumbnail} />
+        <meta name="twitter:image:src" content={projeto.thumbnail} />
+        <meta property="og:description" content={projeto.description} />
+      </Head>
+
       <Header />
       <BannerProjeto
-        title="Projeto 1"
-        type="Website"
-        imgUrl="https://igorgomes.eti.br/images/app-developing.png"
+        title={projeto.title}
+        type={projeto.type}
+        imgUrl={projeto.thumbnail}
       />
+
       <main>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae
-          reiciendis fugit laboriosam distinctio vero excepturi ullam non eaque
-          fuga ea, nesciunt similique explicabo voluptas nihil?
-        </p>
+        <p>{projeto.description}</p>
         <button type="button">
-          <a href="#">Ver Projeto Online</a>
+          <a href={projeto.link}>Ver projeto online</a>
         </button>
       </main>
     </ProjetoContainer>
@@ -30,37 +57,41 @@ export default function Projeto() {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const client = getPrismicClient();
-  const documents = await client.getAllByType('projeto');
+  const prismic = getPrismicClient();
+  const projetos = await prismic.query([
+    Prismic.predicates.at('document.type', 'projeto')
+  ]);
+
+  const paths = projetos.results.map(projeto => ({
+    params: {
+      slug: projeto.uid
+    }
+  }));
+
   return {
-    paths: documents.map(doc => prismicH.asLink(doc, linkResolver)),
+    paths,
     fallback: true
   };
 };
 
 export const getStaticProps: GetStaticProps = async context => {
-  const prismicApi = getPrismicClient();
+  const prismic = getPrismicClient();
   const { slug } = context.params;
 
-  console.log('Slug do Static Props');
-  console.log(slug);
+  const response = await prismic.getByUID('projeto', String(slug), {});
 
-  const projetcResponse = await prismicApi.getByID('projeto'[String(slug)]);
-  console.log('Resposta do projeto no static props');
-  console.log(projetcResponse);
-
-  const project = {
-    slug: projetcResponse.uid,
-    title: projetcResponse.data.title,
-    type: projetcResponse.data.type,
-    desciption: projetcResponse.data.description,
-    link: projetcResponse.data.link.url,
-    thumbnail: projetcResponse.data.thumbnail.url
+  const projeto = {
+    slug: response.uid,
+    title: response.data.title,
+    type: response.data.type,
+    description: response.data.description,
+    link: response.data.link.url,
+    thumbnail: response.data.thumbnail.url
   };
 
   return {
     props: {
-      project
+      projeto
     },
     revalidate: 86400
   };
