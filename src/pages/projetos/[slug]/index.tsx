@@ -4,9 +4,9 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import BannerProjeto from '../../../components/BannerProjeto';
 import Header from '../../../components/Header';
+import LoadingScreen from '../../../components/LoadingScreen';
 import { getPrismicClient } from '../../../services/prismic';
 import { ProjetoContainer } from '../../../styles/ProjetoStyles';
-// import LoadingScreen from '../../../components/LoadingScreen';
 
 interface IProjeto {
   slug: string;
@@ -23,9 +23,9 @@ interface ProjetoProps {
 
 export default function Projeto({ projeto }: ProjetoProps) {
   const router = useRouter();
-  // if (router.isFallback) {
-  //   return <LoadingScreen />;
-  // }
+  if (router.isFallback) {
+    return <LoadingScreen />;
+  }
 
   return (
     <ProjetoContainer>
